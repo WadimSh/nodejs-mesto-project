@@ -1,7 +1,7 @@
 {
-  "name": "starterkits",
+  "name": "WadimShiringa",
   "version": "1.0.0",
-  "description": "< Добавьте описание проекта в свободной форме >",
+  "description": "< Бэкенд Mesto. >",
   "main": "dist/app.js",
   "scripts": {
     "lint": "npx eslint src/**/*.ts",
