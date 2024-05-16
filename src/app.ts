@@ -1,7 +1,7 @@
 import express, { Response, Request, NextFunction } from 'express';
 import mongoose from 'mongoose';
 
-import router from 'routes';
+import router from './routes';
 
 const { PORT = 3000 } = process.env;
 
@@ -14,9 +14,8 @@ mongoose.connect('mongodb://localhost:27017/mestodb');
 app.use((req: Request, res: Response, next: NextFunction) => {
   // @ts-ignore
   req.user = {
-    _id: '...' // вставить сюда _id созданного пользователя
+    _id: '627e7e22e42ed434685bcedf' 
   };
-
   next();
 });
 
