@@ -1,11 +1,22 @@
-import express, { Request, Response } from 'express';
+import express, { Response, Request, NextFunction } from 'express';
+
+import router from 'routes';
 
 const { PORT = 3000 } = process.env;
 
 const app = express();
 
-app.get('/', (req: Request, res: Response) => {
-  res.status(200).send('<h1>Cервер запущен</h1>');
-}); 
+app.use(express.json());
+
+app.use((req: Request, res: Response, next: NextFunction) => {
+  // @ts-ignore
+  req.user = {
+    _id: '...' // вставить сюда _id созданного пользователя
+  };
+
+  next();
+});
+
+app.use('/', router); 
 
 app.listen(PORT);
