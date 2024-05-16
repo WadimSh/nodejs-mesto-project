@@ -1,13 +1,11 @@
 import { Response, Request, NextFunction } from 'express';
 
-export interface User {
-  name: string;
-  about: string;
-  avatar: string;
-};
+import User from '../models/user';
 
 export const getAllUsers = async (req: Request, res: Response, next: NextFunction) => {
-
+  return User.find({})
+    .then((user) => res.send({ data: user }))
+    .catch(() => res.status(500).send({ message: 'Произошла ошибка' }));
 };
 
 export const getUserById = async (req: Request, res: Response, next: NextFunction) => {

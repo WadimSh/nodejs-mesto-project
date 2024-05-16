@@ -1,29 +1,25 @@
 import { Response, Request, NextFunction } from 'express';
 
-export interface Card {
-  name: string;
-  link: string;
-  createdAt: Date;
-  //owner: Schema.Types.ObjectId;
-  //likes: Schema.Types.ObjectId[];
+import Card from '../models/card';
+
+export const getAllCards = (req: Request, res: Response, next: NextFunction) => {
+  return Card.find({})
+    .then((card) => res.send({ data: card }))
+    .catch(() => res.status(500).send({ message: 'Произошла ошибка' }));
 };
 
-export const getAllCards = async (req: Request, res: Response, next: NextFunction) => {
-
-};
-
-export const createCard = async (req: Request, res: Response, next: NextFunction) => {
+export const createCard = (req: Request, res: Response, next: NextFunction) => {
 
 };
 
-export const deleteCardById = async (req: Request, res: Response, next: NextFunction) => {
+export const deleteCardById = (req: Request, res: Response, next: NextFunction) => {
 
 };
 
-export const likeCardById = async (req: Request, res: Response, next: NextFunction) => {
+export const likeCardById = (req: Request, res: Response, next: NextFunction) => {
 
 };
 
-export const dislikeCardById = async (req: Request, res: Response, next: NextFunction) => {
+export const dislikeCardById = (req: Request, res: Response, next: NextFunction) => {
 
 };
