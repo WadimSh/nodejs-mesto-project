@@ -3,6 +3,9 @@ import mongoose from 'mongoose';
 
 import router from './routes';
 
+import { Error } from './type/error';
+import { InternalServer } from 'errors/internal-server';
+
 const { PORT = 3000 } = process.env;
 
 const app = express();
@@ -20,5 +23,14 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 });
 
 app.use('/', router); 
+
+app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
+  if (err.statusCode !== 500) {
+    res.status(err.statusCode).send({ message: err.message });
+    return;
+  } else {
+    throw new InternalServer('Ошибка по умолчанию.')
+  }
+});
 
 app.listen(PORT);
