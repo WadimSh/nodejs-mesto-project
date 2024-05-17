@@ -36,11 +36,8 @@
                 "js": "never",
                 "ts": "never"
             }
-        ]
-    },
-    "extends": "airbnb-base",
-        "rules": {
-            "no-underscore-dangle": ["error", {
+        ],
+        "no-underscore-dangle": ["error", {
             "allow": ["_id"]
         }]
     }
