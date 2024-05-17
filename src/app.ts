@@ -4,7 +4,7 @@ import helmet from 'helmet';
 
 import router from './routes';
 
-import errorHandler from 'middlewares/error-handler';
+import errorHandler from './middlewares/error-handler';
 
 const { PORT = 3000 } = process.env;
 

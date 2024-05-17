@@ -3,8 +3,8 @@ import { Error } from 'mongoose';
 
 import Card from '../models/card';
 
-import { InvalidRequest } from 'errors/invalid-request';
-import { NotFound } from 'errors/not-found';
+import { InvalidRequest } from '../errors/invalid-request';
+import { NotFound } from '../errors/not-found';
 
 export const getAllCards = (req: Request, res: Response, next: NextFunction) => {
   return Card.find({})

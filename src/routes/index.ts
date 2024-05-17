@@ -2,7 +2,7 @@ import { Router, Response, Request, NextFunction } from 'express';
 
 import userRoutes from './users';
 import cardRoutes from './cards';
-import { NotFound } from 'errors/not-found';
+import { NotFound } from '../errors/not-found';
 
 const router = Router();
 

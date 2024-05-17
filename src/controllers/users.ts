@@ -2,8 +2,8 @@ import express, { Response, Request, NextFunction } from 'express';
 
 import User from '../models/user';
 
-import { InvalidRequest } from 'errors/invalid-request';
-import { NotFound } from 'errors/not-found';
+import { InvalidRequest } from '../errors/invalid-request';
+import { NotFound } from '../errors/not-found';
 
 export const getAllUsers = async (req: Request, res: Response, next: NextFunction) => {
   return User.find({})
