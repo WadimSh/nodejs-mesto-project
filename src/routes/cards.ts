@@ -4,10 +4,10 @@ import { getAllCards, createCard, deleteCardById, likeCardById, dislikeCardById 
 
 const router = Router();
 
-router.get('/cards', getAllCards);
-router.post('/cards', createCard);
-router.delete('/cards/:cardId', deleteCardById);
-router.put('/cards/:cardId/likes', likeCardById);
-router.delete('/cards/:cardId/likes', dislikeCardById);
+router.get('/', getAllCards);
+router.post('/', createCard);
+router.delete('/:cardId', deleteCardById);
+router.put('/:cardId/likes', likeCardById);
+router.delete('/:cardId/likes', dislikeCardById);
 
 export default router;

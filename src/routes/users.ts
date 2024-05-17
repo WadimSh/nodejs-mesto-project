@@ -4,10 +4,10 @@ import { getAllUsers, getUserById, createUser, updateUser, updateUserAvatar } fr
 
 const router = Router();
 
-router.get('/users', getAllUsers);
-router.get('/users/:userId', getUserById);
-router.post('/users', createUser);
-router.patch('/users/me', updateUser);
-router.patch('/users/me/avatar', updateUserAvatar);
+router.get('/', getAllUsers);
+router.get('/:userId', getUserById);
+router.post('/', createUser);
+router.patch('/me', updateUser);
+router.patch('/me/avatar', updateUserAvatar);
 
 export default router;
