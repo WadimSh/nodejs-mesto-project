@@ -6,4 +6,4 @@ export interface Card {
   createdAt: Date;
   owner: Schema.Types.ObjectId;
   likes: Schema.Types.ObjectId[];
-};
+}

@@ -18,9 +18,9 @@ const userSchema = new Schema<User>({
   avatar: {
     type: String,
     required: [true, 'Поле "avatar" должно быть заполнено'],
-    validate: { 
-      validator: (v:any) => validator.isURL(v), 
-      message: 'Некорректный URL', 
+    validate: {
+      validator: (v:any) => validator.isURL(v),
+      message: 'Некорректный URL',
     },
   },
 }, { versionKey: false });

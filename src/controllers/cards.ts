@@ -8,9 +8,9 @@ import { NotFound } from '../errors/not-found';
 
 export const getAllCards = (req: Request, res: Response, next: NextFunction) => {
   return Card.find({})
-  .populate('owner')
-  .then((card) => res.send({ card }))
-  .catch(next);
+    .populate('owner')
+    .then((card) => res.send({ card }))
+    .catch(next);
 };
 
 export const createCard = (req: Request, res: Response, next: NextFunction) => {
@@ -18,15 +18,14 @@ export const createCard = (req: Request, res: Response, next: NextFunction) => {
   return Card.create({ name, link, owner: req.user?._id })
     .then((card) => res.status(201).send({ data: card }))
     .catch((err) => {
-      if (err.name == 'ValidationError') {
-        return next(new InvalidRequest('Переданы некорректные данные при создании карточки.'))
+      if (err.name === 'ValidationError') {
+        next(new InvalidRequest('Переданы некорректные данные при создании карточки.'));
+      } else {
+        next(err);
       }
-      else {
-        return next(err)
-      }
-    })
+    });
 };
-  
+
 export const deleteCardById = (req: Request, res: Response, next: NextFunction) => {
   return Card.findByIdAndDelete(req.params.id)
     .orFail(() => {
@@ -35,7 +34,7 @@ export const deleteCardById = (req: Request, res: Response, next: NextFunction) 
     .then((card) => res.send({ card }))
     .catch((err) => {
       if (err instanceof Error.CastError) {
-        return next(new InvalidRequest('Некорректный формат идентификатора.'))
+        next(new InvalidRequest('Некорректный формат идентификатора.'));
       } else {
         next(err);
       }
@@ -50,7 +49,7 @@ export const likeCardById = (req: Request, res: Response, next: NextFunction) =>
     .then((card) => res.send({ card }))
     .catch((err) => {
       if (err instanceof Error.CastError) {
-        return next(new InvalidRequest('Некорректный формат идентификатора.'))
+        next(new InvalidRequest('Некорректный формат идентификатора.'));
       } else {
         next(err);
       }
@@ -65,9 +64,9 @@ export const dislikeCardById = (req: Request, res: Response, next: NextFunction)
   .then((card) => res.send({ card }))
   .catch((err) => {
     if (err instanceof Error.CastError) {
-      return next(new InvalidRequest('Некорректный формат идентификатора.'))
+      next(new InvalidRequest('Некорректный формат идентификатора.'));
     } else {
-      next(err)
+      next(err);
     }
   });
 };

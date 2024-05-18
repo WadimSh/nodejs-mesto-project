@@ -1,4 +1,4 @@
-import express, { Response, Request, NextFunction } from 'express';
+import { Response, Request, NextFunction } from 'express';
 
 import User from '../models/user';
 
@@ -25,13 +25,12 @@ export const createUser = async (req: Request, res: Response, next: NextFunction
   return User.create({ name, about, avatar })
     .then((user) => res.status(201).send({ user }))
     .catch((err) => {
-      if (err.name == 'ValidationError') {
-        return next(new InvalidRequest('Переданы некорректные данные при создании пользователя.'))
+      if (err.name === 'ValidationError') {
+        next(new InvalidRequest('Переданы некорректные данные при создании пользователя.'));
+      } else {
+        next(err);
       }
-      else {
-        return next(err)
-      }
-    })
+    });
 };
 
 export const updateUser = async (req: Request, res: Response, next: NextFunction) => {
@@ -43,13 +42,12 @@ export const updateUser = async (req: Request, res: Response, next: NextFunction
     })
     .then((user) => res.send({ user }))
     .catch((err) => {
-      if (err.name == 'ValidationError') {
-        return next(new InvalidRequest('Переданы некорректные данные при обновлении профиля.'))
+      if (err.name === 'ValidationError') {
+        next(new InvalidRequest('Переданы некорректные данные при обновлении профиля.'));
+      } else {
+        next(err);
       }
-      else {
-        return next(err)
-      }
-    })
+    });
 };
 
 export const updateUserAvatar = async (req: Request, res: Response, next: NextFunction) => {
@@ -60,12 +58,10 @@ export const updateUserAvatar = async (req: Request, res: Response, next: NextFu
     })
     .then((user) => res.send({ user }))
     .catch((err) => {
-      if (err.name == 'ValidationError') {
-        return next(new InvalidRequest('Переданы некорректные данные при обновлении аватара.'))
+      if (err.name === 'ValidationError') {
+        next(new InvalidRequest('Переданы некорректные данные при обновлении аватара.'));
+      } else {
+        next(err);
       }
-      else {
-        return next(err)
-      }
-    })
+    });
 };
- 
