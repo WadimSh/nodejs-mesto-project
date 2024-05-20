@@ -3,7 +3,8 @@ import mongoose from 'mongoose';
 import helmet from 'helmet';
 
 import router from './routes';
-
+import { login, createUser } from './controllers/users';
+import { auth } from './middlewares/auth';
 import errorHandler from './middlewares/error-handler';
 
 const { PORT = 3000 } = process.env;
@@ -16,12 +17,11 @@ app.use(helmet());
 
 app.use(express.json());
 
-app.use((req: Request, res: Response, next: NextFunction) => {
-  req.user = {
-    _id: '6647a876430effeed4424800',
-  };
-  next();
-});
+app.post('/signin', login);
+
+app.post('/signup', createUser);
+
+app.use(auth);
 
 app.use('/', router);
 
