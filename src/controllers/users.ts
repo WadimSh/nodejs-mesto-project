@@ -37,7 +37,7 @@ export const getUserMe = (req: Request, res: Response, next: NextFunction) => {
 };
 
 export const getUserById = (req: Request, res: Response, next: NextFunction) => {
-  return  User.findById(req.params.userId)
+  return User.findById(req.params.userId)
     .orFail(() => {
       throw new NotFound('Пользователь по указанному _id не найден.');
     })
@@ -57,7 +57,7 @@ export const createUser = (req: Request, res: Response, next: NextFunction) => {
       if (err.name === 'ValidationError') {
         next(new InvalidRequest('Переданы некорректные данные при создании пользователя.'));
         return;
-      } 
+      }
       if (err.code === 11000) {
         next(new Conflict('Пользователь с указаным Email уже существует.'));
         return;
@@ -68,7 +68,7 @@ export const createUser = (req: Request, res: Response, next: NextFunction) => {
 
 export const updateUser = (req: Request, res: Response, next: NextFunction) => {
   const { name, about } = req.body;
-  
+
   return User.findByIdAndUpdate(req.user?._id, { name, about }, { new: true, runValidators: true })
     .orFail(() => {
       throw new NotFound('Пользователь с указанным _id не найден.');

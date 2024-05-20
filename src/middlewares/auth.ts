@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from 'express';
+import { Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 import { ObjectId } from 'mongoose';
 
@@ -16,6 +16,6 @@ export const auth = (req: any, res: Response, next: NextFunction) => {
   } catch (err) {
     next(new Unauthorized('Необходима авторизация.'));
   }
-  req.user = payload as { _id: ObjectId };;
+  req.user = payload as { _id: ObjectId };
   next();
 };
