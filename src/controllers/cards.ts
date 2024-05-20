@@ -5,6 +5,7 @@ import Card from '../models/card';
 
 import { InvalidRequest } from '../errors/invalid-request';
 import { NotFound } from '../errors/not-found';
+import { Forbidden } from '../errors/forbidden-error';
 
 export const getAllCards = (req: Request, res: Response, next: NextFunction) => {
   return Card.find({})
@@ -27,11 +28,17 @@ export const createCard = (req: Request, res: Response, next: NextFunction) => {
 };
 
 export const deleteCardById = (req: Request, res: Response, next: NextFunction) => {
-  return Card.findByIdAndDelete(req.params.id)
+  return Card.findById(req.params.id)
     .orFail(() => {
       throw new NotFound('Карточка с указанным _id не найдена.');
     })
-    .then((card) => res.send({ card }))
+    .then((card) => {
+      if (card.owner.toString() !== req.user?._id) {
+        throw new Forbidden('Попытка удалить чужую карточку.');
+      }
+    })
+    .then(() => Card.findByIdAndDelete(req.params.cardId)
+      .then((card) => res.send({ card })))
     .catch((err) => {
       if (err instanceof Error.CastError) {
         next(new InvalidRequest('Некорректный формат идентификатора.'));

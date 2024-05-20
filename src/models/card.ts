@@ -1,4 +1,5 @@
 import { Schema, model } from 'mongoose';
+import validator from 'validator';
 import { Card } from '../type/card';
 
 const cardSchema = new Schema<Card>({
@@ -11,6 +12,10 @@ const cardSchema = new Schema<Card>({
   link: {
     type: String,
     required: [true, 'Поле "link" должно быть заполнено'],
+    validate: {
+      validator: (v:string) => validator.isURL(v),
+      message: 'Некорректный URL',
+    },
   },
   createdAt: {
     type: Date,

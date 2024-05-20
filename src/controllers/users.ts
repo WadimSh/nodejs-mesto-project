@@ -7,6 +7,7 @@ import User from '../models/user';
 import { Unauthorized } from '../errors/unauthorized-error';
 import { InvalidRequest } from '../errors/invalid-request';
 import { NotFound } from '../errors/not-found';
+import { Conflict } from '../errors/conflict-error';
 
 export const login = (req: Request, res: Response, next: NextFunction) => {
   const { email, password } = req.body;
@@ -55,9 +56,13 @@ export const createUser = (req: Request, res: Response, next: NextFunction) => {
     .catch((err) => {
       if (err.name === 'ValidationError') {
         next(new InvalidRequest('Переданы некорректные данные при создании пользователя.'));
-      } else {
-        next(err);
+        return;
+      } 
+      if (err.code === 11000) {
+        next(new Conflict('Пользователь с указаным Email уже существует.'));
+        return;
       }
+      next(err);
     });
 };
 

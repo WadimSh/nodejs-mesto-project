@@ -23,7 +23,7 @@ const userSchema = new Schema<User>({
     type: String,
     default: 'https://pictures.s3.yandex.net/resources/jacques-cousteau_1604399756.png',
     validate: {
-      validator: (v:string) => validator.isURL(v),
+      validator: (v:string) => /^(https?:\/\/)(w{3}.)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/[a-zA-Z0-9\-._~:/?#[\]@!$&'()*+,;=]*)?(#)?$/.test(v),
       message: 'Некорректный URL',
     },
   },
@@ -32,9 +32,7 @@ const userSchema = new Schema<User>({
     required: [true, 'Поле "email" должно быть заполнено'],
     unique: true,
     validate: {
-      validator(v:string) {
-        return validator.isEmail(v);
-      },
+      validator: (v:string) => validator.isEmail(v),
       message: 'Некорректый адрес электронной почты',
     },
   },
