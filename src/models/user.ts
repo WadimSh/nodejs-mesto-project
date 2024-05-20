@@ -2,7 +2,7 @@ import { Schema, model } from 'mongoose';
 import validator from 'validator';
 import bcrypt from 'bcryptjs';
 
-import { Unauthorized } from '../errors/unauthorized-error';
+import Unauthorized from '../errors/unauthorized-error';
 
 import { User, UserModel } from '../type/user';
 

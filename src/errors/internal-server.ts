@@ -1,4 +1,4 @@
-export class InternalServer extends Error {
+class InternalServer extends Error {
   public statusCode: number;
 
   constructor(message: string) {
@@ -6,3 +6,5 @@ export class InternalServer extends Error {
     this.statusCode = 500;
   }
 }
+
+export default InternalServer;

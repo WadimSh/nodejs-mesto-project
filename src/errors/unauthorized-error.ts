@@ -1,4 +1,4 @@
-export class Unauthorized extends Error {
+class Unauthorized extends Error {
   public statusCode: number;
 
   constructor(message: string) {
@@ -6,3 +6,5 @@ export class Unauthorized extends Error {
     this.statusCode = 401;
   }
 }
+
+export default Unauthorized;

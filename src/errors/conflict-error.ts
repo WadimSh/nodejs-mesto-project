@@ -1,4 +1,4 @@
-export class Conflict extends Error {
+class Conflict extends Error {
   public statusCode: number;
 
   constructor(message: string) {
@@ -6,3 +6,5 @@ export class Conflict extends Error {
     this.statusCode = 409;
   }
 }
+
+export default Conflict;

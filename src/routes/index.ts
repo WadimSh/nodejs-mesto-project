@@ -1,9 +1,14 @@
-import { Router, Response, Request, NextFunction } from 'express';
+import {
+  Router,
+  Response,
+  Request,
+  NextFunction,
+} from 'express';
 
 import userRoutes from './users';
 import cardRoutes from './cards';
-import { auth } from '../middlewares/auth';
-import { NotFound } from '../errors/not-found';
+import auth from '../middlewares/auth';
+import NotFound from '../errors/not-found';
 
 const router = Router();
 

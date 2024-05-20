@@ -1,4 +1,4 @@
-export class NotFound extends Error {
+class NotFound extends Error {
   public statusCode: number;
 
   constructor(message: string) {
@@ -6,3 +6,5 @@ export class NotFound extends Error {
     this.statusCode = 404;
   }
 }
+
+export default NotFound;

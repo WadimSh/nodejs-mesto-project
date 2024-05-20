@@ -1,6 +1,8 @@
 import { Router } from 'express';
 import { celebrate, Joi } from 'celebrate';
 
+import { PATTERN_LINK } from '../constants';
+
 import {
   getAllUsers,
   getUserMe,
@@ -26,7 +28,7 @@ router.patch('/me', celebrate({
 }), updateUser);
 router.patch('/me/avatar', celebrate({
   body: Joi.object().keys({
-    avatar: Joi.string().required().pattern(/^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w.-]+)+[\w\-._~:/?#[\]@!$&'()*+,;=.]+$/),
+    avatar: Joi.string().required().pattern(PATTERN_LINK),
   }),
 }), updateUserAvatar);
 

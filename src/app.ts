@@ -7,12 +7,17 @@ import router from './routes';
 import { login, createUser } from './controllers/users';
 import { reqLogger, errLogger } from './middlewares/logger';
 import errorHandler from './middlewares/error-handler';
+import rateLimit from './middlewares/rate-limit';
+
+import { PATTERN_JIO } from './constants';
 
 const { PORT = 3000 } = process.env;
 
 const app = express();
 
 mongoose.connect('mongodb://127.0.0.1:27017/mestodb');
+
+app.use(rateLimit);
 
 app.use(helmet());
 
@@ -33,7 +38,7 @@ app.post('/signup', celebrate({
     password: Joi.string().required(),
     name: Joi.string().min(2).max(30),
     about: Joi.string().min(2).max(30),
-    avatar: Joi.string().required().pattern(/^(https?:\/\/)(w{3}.)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/[a-zA-Z0-9\-._~:/?#[\]@!$&'()*+,;=]*)?(#)?$/),
+    avatar: Joi.string().required().pattern(PATTERN_JIO),
   }),
 }), createUser);
 

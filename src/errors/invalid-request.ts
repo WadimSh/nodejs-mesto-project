@@ -1,4 +1,4 @@
-export class InvalidRequest extends Error {
+class InvalidRequest extends Error {
   public statusCode: number;
 
   constructor(message: string) {
@@ -6,3 +6,5 @@ export class InvalidRequest extends Error {
     this.statusCode = 400;
   }
 }
+
+export default InvalidRequest;
